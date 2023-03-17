@@ -2,12 +2,13 @@
   "name": "git-monitor",
   "version": "1.0.0",
   "description": "GitMonitor's a tool to monitor git repo commit by git command in local",
-  "main": "main.js",
+  "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "start-vue":"cd vue && npm run serve"
   },
   "repository": {
     "type": "git",
