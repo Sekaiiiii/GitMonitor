@@ -8,7 +8,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "start-vue":"cd vue && npm run serve"
+    "start-vue": "cd vue && npm run serve"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "electron": "^23.1.4"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "moment": "^2.29.4"
   }
 }
