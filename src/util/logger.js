@@ -28,11 +28,7 @@ Object.defineProperty(global, '__line', {
     }
 });
 
-Object.defineProperty(global, '__logPath', {
-    get: function () {
-        return `${__file}:${__line}`
-    }
-})
+
 
 log4js.configure({
     appenders: {

@@ -5,11 +5,11 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const git = require('./git');
 const logger = require('../util/logger');
+const AppError = require('./error');
+const ERROR_CONSTANT = require('../constant/error')
+const { RESOURCE_DIR_PATH, REPO_DIR_NAME, REPO_DIR_PATH } = require('../constant');
+const { dirname } = require('node:path');
 
-const { RESOURCE_DIR_PATH } = require('../constant');
-
-const REPO_DIR_NAME = 'repo';
-const REPO_DIR_PATH = path.join(RESOURCE_DIR_PATH, REPO_DIR_NAME);
 
 /**
  * @class repo info class
@@ -49,7 +49,7 @@ const listRepo = async () => {
                 continue;
             }
             const repoPath = path.join(REPO_DIR_PATH, dirent.name);
-            if (!await git.isGitRepo(repoPath)) {
+            if (!await git.isGitRepoCanLog(repoPath)) {
                 continue;
             }
             const tempRepoInfo = new RepoInfo();
@@ -60,7 +60,7 @@ const listRepo = async () => {
         }
         return repoList;
     } catch (err) {
-        logger.error(__logPath, err);
+        logger.error(err);
         return [];
     }
 }
@@ -70,12 +70,36 @@ const listRepo = async () => {
  * @desc create repo in repo dir
  */
 const createRepo = async (repoRemoteAddress, repoName) => {
-
+    try {
+        const dir = await fs.opendir(path.join(REPO_DIR_PATH))
+        const repoCreateDirExistFlag = false;
+        for await (const dirent of dir) {
+            if (dirent.name === repoName) {
+                repoCreateDirExistFlag = true;
+                break;
+            }
+            if (dirent.name === repoName && !dirent.isDirectory()) {
+                throw new AppError({ errorCode: ERROR_CONSTANT.REPO_PATH_NOT_DIRECTORY_ERROR });
+            }
+        }
+        if (!repoCreateDirExistFlag) {
+            try {
+                await fs.mkdir(path.join(REPO_DIR_PATH, repoName))
+            } catch (err) {
+                logger.error(err);
+                throw new AppError({ errorCode: ERROR_CONSTANT.CREATE_REPO_DIR_ERROR });
+            }
+        }
+        await git.initGitRepo(path.join(REPO_DIR_PATH, repoName), repoRemoteAddress);
+        return true;
+    } catch (err) {
+        logger.error(err);
+        throw err;
+    }
 }
 
 module.exports = {
     RepoInfo,
-    REPO_DIR_NAME,
     initRepoResource,
     listRepo,
     createRepo
