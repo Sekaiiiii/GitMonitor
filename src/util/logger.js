@@ -28,7 +28,7 @@ Object.defineProperty(global, '__line', {
     }
 });
 
-Object.defineProperties(global, '__logPath', {
+Object.defineProperty(global, '__logPath', {
     get: function () {
         return `${__file}:${__line}`
     }
