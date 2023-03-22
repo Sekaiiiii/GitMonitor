@@ -3,3 +3,4 @@ dist/
 out/
 app_resources/
 log/
+.vscode/

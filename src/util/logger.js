@@ -36,16 +36,15 @@ Object.defineProperty(global, '__logPath', {
 
 log4js.configure({
     appenders: {
-        out: { type: "stdout" },
+        console: { type: "console" },
         app: { type: "file", filename: LOGGER_FILE_PATH }
+
     },
     categories: {
-        default: { appenders: ["out", "app"], level: "debug" }
+        default: { appenders: ["console", "app"], level: "debug" },
     }
 })
 
-const logger = log4js.getLogger();
-
-
+const logger = log4js.getLogger()
 
 module.exports = logger;

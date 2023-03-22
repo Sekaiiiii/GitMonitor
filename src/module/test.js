@@ -6,6 +6,6 @@ const repo = require('../lib/repo');
 module.exports = {
     run: async () => {
         logger.debug('test run');
-        await repo.listRepo()
+        logger.debug(await repo.listRepo());
     }
 }
