@@ -8,21 +8,8 @@ const logger = require('../util/logger');
 const AppError = require('./error');
 const ERROR_CONSTANT = require('../constant/error')
 const { RESOURCE_DIR_PATH, REPO_DIR_NAME, REPO_DIR_PATH } = require('../constant');
-const { dirname } = require('node:path');
 
 
-/**
- * @class repo info class
- */
-class RepoInfo {
-
-    constructor({ repoPath, repoName, repoRemoteAddress } = {}) {
-        this.repoPath = repoPath;
-        this.repoName = repoName;
-        this.repoRemoteAddress = repoRemoteAddress;
-    }
-
-}
 
 /**
  * @function initRepoResource
@@ -60,6 +47,9 @@ const listRepo = async () => {
         }
         return repoList;
     } catch (err) {
+        if (err instanceof AppError) {
+            throw err;
+        }
         logger.error(err);
         return [];
     }
@@ -93,6 +83,28 @@ const createRepo = async (repoRemoteAddress, repoName) => {
         await git.initGitRepo(path.join(REPO_DIR_PATH, repoName), repoRemoteAddress);
         return true;
     } catch (err) {
+        if (err instanceof AppError) {
+            throw err;
+        }
+        logger.error(err);
+        throw err;
+    }
+}
+
+/**
+ * @function deleteRepo
+ */
+const deleteRepo = async (repoPath) => {
+    try {
+        if (!await git.isGitRepo(repoPath)
+        ) {
+            throw new AppError({ errorCode: ERROR_CONSTANT.REPO_PATH_NOT_REPO_ERROR });
+        }
+        await fs.rmdir(repoPath);
+    } catch (err) {
+        if (err instanceof AppError) {
+            throw err;
+        }
         logger.error(err);
         throw err;
     }
@@ -102,5 +114,6 @@ module.exports = {
     RepoInfo,
     initRepoResource,
     listRepo,
-    createRepo
+    createRepo,
+    deleteRepo,
 }

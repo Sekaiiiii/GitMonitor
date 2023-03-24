@@ -26,6 +26,7 @@ module.exports = {
         await git.addRemoteRepo(repoPath, remoteAddress);
         await git.fetchRemoteRepo(repoPath);
         logger.debug(await git.getRepoBranch(repoPath));
+        logger.debug(await git.getBranchLog(repoPath, { branchName: 'main', isRemote: true }));
         // logger.debug(await git.isGitRepo(path.join(REPO_DIR_PATH, repoName)))
         // logger.debug(await git.isGitRepo(path.join(REPO_DIR_PATH, 'programCreateRepo224809')))
         // logger.debug(await git.isGitRepo(path.join(REPO_DIR_PATH, 'noexist')))

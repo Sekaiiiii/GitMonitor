@@ -9,12 +9,6 @@ const AppError = require('./error');
 const ERROR_CONSTANT = require('../constant/error');
 const { spawn } = require('node:child_process');
 
-class BranchInfo {
-    constructor({ branchName, isRemote = false }) {
-        this.branchName = branchName;
-        this.isRemote = isRemote
-    }
-}
 
 /**
  * @function
@@ -298,6 +292,43 @@ const getRepoBranch = async (path, { showRemote = true } = {}) => {
     }
 }
 
+/**
+ * @function 
+ */
+const getBranchLog = async (path, { branchName, isRemote }) => {
+    try {
+        if (!await isGitRepo(path)) {
+            throw new AppError({ errorCode: ERROR_CONSTANT.REPO_NOT_INIT_ERROR });
+        }
+        return new Promise((resolve, reject) => {
+            let logParam = branchName ? `${isRemote ? 'origin/' : ''}${branchName}` : '';
+            const gitBranchLogCommand = spawn('git', ['log', logParam], {
+                cwd: path
+            })
+            let gitBranchLogStdoutData;
+            gitBranchLogCommand.stdout.on('data', (data) => {
+                logger.debug(data.toString());
+                gitBranchLogStdoutData = data.toString();
+            })
+            gitBranchLogCommand.stderr.on('data', (data) => {
+                logger.debug(data.toString());
+            })
+            gitBranchLogCommand.on('close', (code) => {
+                if (!code == 0) {
+                    return reject(new AppError({ errorCode: ERROR_CONSTANT.GIT_LOG_ERROR }));
+                }
+                resolve(gitBranchLogStdoutData);
+            })
+        })
+    } catch (err) {
+        if (AppError.isAppError(err)) {
+            throw err;
+        }
+        logger.error(err);
+        throw err;
+    }
+}
+
 module.exports = {
     isGitRepo,
     isGitRepoCanLog,
@@ -306,5 +337,6 @@ module.exports = {
     initGitRepoCanLog,
     fetchRemoteRepo,
     addRemoteRepo,
-    getRepoBranch
+    getRepoBranch,
+    getBranchLog
 }
