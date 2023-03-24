@@ -1,5 +1,5 @@
 // const { app, BrowserWindow, ipcMain } = require('electron');
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, Menu, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path'
 import main from '@/module/main';
 import test from '@/module/test';
@@ -7,6 +7,7 @@ import test from '@/module/test';
 const vueClientWindowApi = {};
 
 const createVueClientWindow = () => {
+  Menu.setApplicationMenu(null);
   const vueClientWindow = new BrowserWindow({
     width: 800,
     height: 600,
