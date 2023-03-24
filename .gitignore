@@ -4,3 +4,4 @@ out/
 app_resources/
 log/
 .vscode/
+.webpack/

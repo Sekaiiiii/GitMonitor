@@ -1,14 +1,14 @@
 /**
  * @file git operation lib
  */
-const logger = require('../util/logger');
-const path = require('node:path');
-const pathLib = require('node:path');
-const fs = require('node:fs/promises');
-const AppError = require('./error');
-const ERROR_CONSTANT = require('../constant/error');
-const { spawn } = require('node:child_process');
-
+import logger from '@/util/logger';
+import path from 'node:path';
+import pathLib from 'node:path';
+import fs from 'node:fs/promises';
+import AppError from '@/lib/class/AppError';
+import ERROR_CONSTANT from '@/constant/error';
+import BranchInfo from '@/lib/class/BranchInfo';
+import { spawn } from 'node:child_process';
 
 /**
  * @function
@@ -329,7 +329,7 @@ const getBranchLog = async (path, { branchName, isRemote }) => {
     }
 }
 
-module.exports = {
+export default {
     isGitRepo,
     isGitRepoCanLog,
     getGitRemoteAddress,

@@ -1,5 +1,4 @@
-
-const ERROR_CONSTANT = require('../constant/error')
+import ERROR_CONSTANT from '@/constant/error';
 
 /**
  * @class AppError
@@ -15,4 +14,4 @@ class AppError extends Error {
     }
 }
 
-module.exports = AppError;
+export default AppError;

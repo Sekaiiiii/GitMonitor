@@ -2,7 +2,7 @@
   "name": "git-monitor",
   "version": "1.0.0",
   "description": "GitMonitor's a tool to monitor git repo commit by git command in local",
-  "main": "./src/main.js",
+  "main": ".webpack/main",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "set NODE_ENV=dev&& electron-forge start",
@@ -27,12 +27,20 @@
   },
   "homepage": "https://github.com/Sekaiiiii/GitMonitor#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
     "@electron-forge/cli": "^6.0.5",
     "@electron-forge/maker-deb": "^6.0.5",
     "@electron-forge/maker-rpm": "^6.0.5",
     "@electron-forge/maker-squirrel": "^6.0.5",
     "@electron-forge/maker-zip": "^6.0.5",
-    "electron": "^23.1.4"
+    "@electron-forge/plugin-webpack": "^6.0.5",
+    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "babel-core": "^4.7.16",
+    "babel-loader": "^9.1.2",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^6.7.3",
+    "electron": "^23.1.4",
+    "style-loader": "^3.3.2"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",

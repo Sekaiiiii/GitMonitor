@@ -1,16 +1,17 @@
 /**
  * @file develop test module to load
  */
-const logger = require('../util/logger');
-const git = require('../lib/git');
-const repo = require('../lib/repo');
-const AppError = require('../lib/error');
-const path = require('node:path');
-const fs = require('node:fs/promises');
-const ERROR_CONSTANT = require('../constant/error');
-const moment = require('moment');
-const { REPO_DIR_NAME, REPO_DIR_PATH } = require('../constant');
-module.exports = {
+import logger from '@/util/logger';
+import git from '@/lib/git';
+import repo from '@/lib/repo';
+import AppError from '@/lib/class/AppError';
+import path from 'node:path';
+import fs from 'node:fs/promises';
+import ERROR_CONSTANT from '@/constant/error';
+import moment from 'moment';
+import { REPO_DIR_NAME, REPO_DIR_PATH } from '@/constant';
+
+export default {
     run: async () => {
         logger.debug('test run');
         // logger.debug(await repo.listRepo());

@@ -1,8 +1,11 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('node:path');
-const main = require('./module/main');
-const test = require('./module/test');
-const vueClientWindowApi = {}
+// const { app, BrowserWindow, ipcMain } = require('electron');
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'node:path'
+import main from '@/module/main';
+import test from '@/module/test';
+
+const vueClientWindowApi = {};
+
 const createVueClientWindow = () => {
   const vueClientWindow = new BrowserWindow({
     width: 800,

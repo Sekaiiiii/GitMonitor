@@ -7,3 +7,5 @@ class BranchInfo {
         this.isRemote = isRemote
     }
 }
+
+export default BranchInfo;

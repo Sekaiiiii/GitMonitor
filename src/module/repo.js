@@ -1,10 +1,10 @@
 /**
  * @file git repo module
  */
-const AppError = require('../lib/error');
-const repo = require('../lib/repo');
+import AppError from '@/lib/class/AppError';
+import repo from '@/lib/repo';
 
-module.export = {
+export default {
     /**
      * @function
      */

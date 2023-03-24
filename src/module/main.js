@@ -1,9 +1,9 @@
 /**
  * @file main module to load
  */
-const logger = require('../util/logger');
+import logger from '@/util/logger';
 
-module.exports = {
+export default {
     run: () => {
         logger.debug('main run');
     }

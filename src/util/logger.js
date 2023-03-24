@@ -1,8 +1,8 @@
 /**
  * @file logger util
  */
-const log4js = require('log4js');
-const { LOGGER_FILE_PATH } = require('../constant');
+import { LOGGER_FILE_PATH } from '@/constant';
+import log4js from 'log4js';
 
 Object.defineProperty(global, '__stack', {
     get: function () {
@@ -43,4 +43,4 @@ log4js.configure({
 
 const logger = log4js.getLogger()
 
-module.exports = logger;
+export default logger;
