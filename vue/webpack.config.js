@@ -13,10 +13,18 @@ module.exports = {
                         loader: "style-loader"
                     },
                     {
-                        loader: "css-loader"
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]_[hash:base64:8]'
+                        }
                     },
                     {
-                        loader: "less-loader"
+                        loader: "less-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]_[hash:base64:8]'
+                        }
                     }
                 ],
             },

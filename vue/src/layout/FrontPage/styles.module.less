@@ -1,4 +1,69 @@
+@import '@/style/var.less';
+
 .base-layout {
     height: 100%;
     width: 100%;
+
+    .sider-layout {
+
+        border-right: 1px solid @common-border-color;
+
+        :global {
+            ul.ant-menu.ant-menu-inline.ant-menu-root.ant-menu-light {
+                border-right: 0px;
+            }
+        }
+
+    }
+
+    .header-layout {
+        background-color: @common-background-color;
+        height: @header-height;
+        padding: 0 0;
+        line-height: 60px;
+        border-bottom: 1px solid @common-border-color;
+
+    }
+
+    .content-layout {
+        background-color: @common-background-color;
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 0 0;
+    }
+}
+
+.menu-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+
+
+    .menu-header {
+        position: relative;
+        height: @header-height;
+
+        .menu-header-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    .menu-content {
+        height: 100%;
+        width: 100%;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
 }

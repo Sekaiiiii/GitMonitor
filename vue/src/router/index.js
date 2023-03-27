@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import FrontPage from '@/layout/FrontPage/Index';
+import RepoTable from '@/views/repo/RepoTable';
 
 Vue.use(VueRouter)
 
@@ -9,7 +10,14 @@ const routes = [
   {
     path: '/',
     name: 'frontPage',
-    component: FrontPage
+    component: FrontPage,
+    children: [
+      {
+        name: 'RepoTable',
+        path: 'repoTable',
+        component: RepoTable
+      }
+    ]
   },
 ]
 
