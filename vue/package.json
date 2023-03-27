@@ -23,6 +23,11 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "babel-eslint": "^10.1.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "less": "^4.1.3",
@@ -38,8 +43,12 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "requireConfigFile": false,
+      "ecmaFeatures": {
+        "jsx": true
+      }
     },
     "rules": {}
   },
