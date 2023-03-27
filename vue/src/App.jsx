@@ -1,9 +1,11 @@
 import { RouterView } from "vue-router"
 
+import '@/style/base.less';
+
 export default {
   render() {
     return (
-      <div>
+      <div class="layout-container">
         <RouterView></RouterView>
       </div>
     )

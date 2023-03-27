@@ -1,13 +1,23 @@
 module.exports = {
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src')
+        }
+    },
     module: {
         rules: [
             {
-                test: /\.less$/i,
+                test: /\.(css|less)$/i,
                 use: [
-                    // compiles Less to CSS
-                    "style-loader",
-                    "css-loader",
-                    "less-loader",
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader"
+                    },
+                    {
+                        loader: "less-loader"
+                    }
                 ],
             },
         ],

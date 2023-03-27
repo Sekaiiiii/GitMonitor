@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import FrontPage from '@/views/FrontPage';
+
+import FrontPage from '@/layout/FrontPage/Index';
 
 Vue.use(VueRouter)
 

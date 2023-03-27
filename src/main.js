@@ -16,7 +16,7 @@ const createVueClientWindow = () => {
       preload: path.join(__dirname, 'renderer', 'vue-client-preload.js')
     }
   })
-
+  vueClientWindow.webContents.openDevTools();
   vueClientWindow.loadURL('http://localhost:8080')
 }
 
