@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import FrontPage from '@/layout/FrontPage/Index';
 import RepoTable from '@/views/repo/RepoTable';
+import HomePage from '@/views/HomePage';
 
 Vue.use(VueRouter)
 
@@ -13,9 +14,20 @@ const routes = [
     component: FrontPage,
     children: [
       {
+        name: 'homePage',
+        path: '/',
+        component: HomePage,
+        meta: {
+          breadcrumbName: '首页'
+        },
+      },
+      {
         name: 'RepoTable',
         path: 'repoTable',
-        component: RepoTable
+        component: RepoTable,
+        meta: {
+          breadcrumbName: '仓库列表'
+        }
       }
     ]
   },

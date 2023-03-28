@@ -8,6 +8,17 @@ import 'ant-design-vue/dist/antd.less';
 Vue.config.productionTip = false
 Vue.use(Ant)
 
+router.beforeEach((to, from, next) => {
+  if (to.fullPath === from.fullPath) {
+    next(false);
+  }
+  if (to.matched.length === 0) {
+    next({ name: 'homePage' })
+  } else {
+    next();
+  }
+})
+
 new Vue({
   router,
   store,

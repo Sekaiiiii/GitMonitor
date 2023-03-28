@@ -30,7 +30,7 @@
         height: 100%;
         width: 100%;
         overflow-x: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding: 0 0;
     }
 }
@@ -39,8 +39,6 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
-
-
 
     .menu-header {
         position: relative;
@@ -53,6 +51,7 @@
             transform: translate(-50%, -50%);
             height: auto;
             width: 100%;
+            cursor: pointer;
         }
     }
 
@@ -65,5 +64,21 @@
             display: none;
         }
     }
+}
 
+.header-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    .header-breadcrumb {
+        position: absolute;
+        width: fit-content;
+        height: 30px;
+        line-height: 30px;
+        top: 0;
+        bottom: 0;
+        margin: auto 28px;
+    }
 }

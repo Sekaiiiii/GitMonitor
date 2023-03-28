@@ -5,10 +5,10 @@ export default {
         return (
             <div class={styles['menu-container']}>
                 <div class={styles['menu-header']}>
-                    <img src="./images/menu-logo.png" class={styles["menu-header-image"]}></img>
+                    <img src="./images/menu-logo.png" class={styles["menu-header-image"]} onClick={this.hdClickMenuLogo}></img>
                 </div>
                 <div class={styles['menu-content']}>
-                    <a-menu mode="inline" onSelect={this.hdMenuSelect}>
+                    <a-menu mode="inline" onSelect={this.hdSelectMenu}>
                         <a-sub-menu>
                             <span slot="title">
                                 <a-icon type="appstore" /> <span>仓库管理</span>
@@ -38,10 +38,17 @@ export default {
         )
     },
     methods: {
-        hdMenuSelect({ key }) {
+        hdSelectMenu({ key }) {
             this.$router.push({
                 name: key
             })
+        },
+        hdClickMenuLogo() {
+            if (this.$route.name != 'homePage') {
+                this.$router.push({
+                    name: 'homePage'
+                })
+            }
         }
     }
 }
