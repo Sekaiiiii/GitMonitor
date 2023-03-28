@@ -7,23 +7,39 @@
 }
 
 html {
+    outline: 10px solid #fff;
+    outline-offset: -11px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 11px;
+    padding: 10px 10px;
+    
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 body {
+    background: rgba(0, 0, 0, 0) !important;
     width: 100%;
     height: 100%;
 }
 
-#app {
-    width: 100%;
-    height: 100%;
-}
 
 .layout-container {
     width: 100%;
     height: 100%;
+    background: rgba(0, 0, 0, 0);
+
+    .drag-area {
+        position: absolute;
+        z-index: 100;
+        top: 0px;
+        width: 100%;
+        height: 10px;
+        cursor: move;
+        -webkit-app-region: drag;
+        -webkit-user-select: none;
+    }
 }
 
 ::-webkit-scrollbar {

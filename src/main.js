@@ -9,20 +9,32 @@ const vueClientWindowApi = {};
 const createVueClientWindow = () => {
   Menu.setApplicationMenu(null);
   const vueClientWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
+    frame: false,
+    transparent: true,
+    resizable: false,
+    maximizable: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'renderer', 'vue-client-preload.js')
     }
   })
+  vueClientWindow.setBackgroundColor('#00000000');
   vueClientWindow.webContents.openDevTools();
   vueClientWindow.loadURL('http://localhost:8080')
+  // vueClientWindow.onshow(e => {
+  //   vueClientWindow.setBackgroundColor('blue');
+  // })
+  vueClientWindow.on('ready-to-show', (e) => {
+    vueClientWindow.show();
+  })
 }
 
 app.whenReady().then(async () => {
-  main.run(); //main module run
-  test.run(); //test module run
+  // main.run(); //main module run
+  // test.run(); //test module run
   createVueClientWindow()
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createVueClientWindow()
