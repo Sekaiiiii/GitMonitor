@@ -10,11 +10,13 @@ export default {
      */
     repoList: async () => {
         try {
-            await repo.listRepo()
+            return await repo.listRepo()
         } catch (err) {
             if (err instanceof AppError) {
-                throw
+                throw err;
             }
+            logger.error(err);
+            throw err;
         }
     },
     /**

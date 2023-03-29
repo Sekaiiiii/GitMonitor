@@ -5,6 +5,7 @@
 import git from '@/lib/git';
 import logger from '@/util/logger';
 import path from 'node:path';
+import RepoInfo from '@/lib/class/RepoInfo';
 import fs from 'node:fs/promises';
 import AppError from '@/lib/class/AppError';
 import ERROR_CONSTANT from '@/constant/error';
@@ -35,7 +36,7 @@ const listRepo = async () => {
                 continue;
             }
             const repoPath = path.join(REPO_DIR_PATH, dirent.name);
-            if (!await git.isGitRepoCanLog(repoPath)) {
+            if (!await git.isGitRepo(repoPath)) {
                 continue;
             }
             const tempRepoInfo = new RepoInfo();

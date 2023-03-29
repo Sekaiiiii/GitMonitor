@@ -55,10 +55,8 @@ const isGitRepo = async (path) => {
             let gitStdoutData;
             gitRevParseCommand.stdout.on('data', (data) => {
                 gitStdoutData = data.toString();
-                logger.debug(data.toString());
             })
             gitRevParseCommand.stderr.on('data', (data) => {
-                logger.debug(data.toString());
             })
             gitRevParseCommand.on('close', (code) => {
                 if (code === 0 && gitStdoutData?.trim() === 'true') {
