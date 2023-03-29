@@ -1,14 +1,16 @@
-// const { app, BrowserWindow, ipcMain } = require('electron');
 import { app, Menu, BrowserWindow, ipcMain } from 'electron';
+import mainWindowListener from '@/renderer/listener/mainWindow'
 import path from 'node:path'
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 import main from '@/module/main';
 import test from '@/module/test';
 
-const vueClientWindowApi = {};
-
 const createVueClientWindow = () => {
   Menu.setApplicationMenu(null);
-  const vueClientWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     frame: false,
@@ -18,27 +20,22 @@ const createVueClientWindow = () => {
     titleBarStyle: 'hidden',
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, 'renderer', 'vue-client-preload.js')
+      preload: path.join(__dirname, 'renderer', 'preload', 'mainWindow.js')
     }
   })
-  vueClientWindow.setBackgroundColor('#00000000');
-  vueClientWindow.webContents.openDevTools();
-  vueClientWindow.loadURL('http://localhost:8080')
-  // vueClientWindow.onshow(e => {
-  //   vueClientWindow.setBackgroundColor('blue');
-  // })
-  vueClientWindow.on('ready-to-show', (e) => {
-    vueClientWindow.show();
-  })
+  mainWindow.setBackgroundColor('#00000000');
+  mainWindow.webContents.openDevTools();
+
+  mainWindow.loadURL('http://localhost:8080')
+
+  return mainWindow;
 }
 
 app.whenReady().then(async () => {
   // main.run(); //main module run
   // test.run(); //test module run
-  createVueClientWindow()
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createVueClientWindow()
-  })
+  const mainWinHandler = createVueClientWindow()
+  mainWindowListener(mainWinHandler);
 })
 
 app.on('window-all-closed', () => {

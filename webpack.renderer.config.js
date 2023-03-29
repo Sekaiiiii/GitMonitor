@@ -1,4 +1,5 @@
 const rules = require('./webpack.rules');
+const path = require('node:path');
 
 rules.push({
   test: /\.css$/,

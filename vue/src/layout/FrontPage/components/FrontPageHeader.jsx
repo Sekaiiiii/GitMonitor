@@ -1,3 +1,4 @@
+import { ELECTRON_EVENT_WINDOW_CLOSE, ELECTRON_EVENT_WINDOW_MINIMIZE } from '@/constants/electronEvent';
 import styles from '../styles.module.less';
 
 export default {
@@ -40,10 +41,10 @@ export default {
     },
     methods: {
         hdClickCloseBtn() {
-
+            window.electronAPI.send(ELECTRON_EVENT_WINDOW_CLOSE);
         },
         hdClickMinusBtn() {
-
+            window.electronAPI.send(ELECTRON_EVENT_WINDOW_MINIMIZE);
         }
     }
 }
