@@ -13,6 +13,10 @@ export default {
                         })
                     }
                 </a-breadcrumb>
+                <div class={styles['header-window-btns']}>
+                    <a-icon type="minus" onClick={this.hdClickMinusBtn}></a-icon>
+                    <a-icon type="close" onClick={this.hdClickCloseBtn}></a-icon>
+                </div>
             </div>
         )
     },
@@ -33,9 +37,13 @@ export default {
         }
     },
     created() {
-        this.$route.match
     },
     methods: {
+        hdClickCloseBtn() {
 
+        },
+        hdClickMinusBtn() {
+
+        }
     }
 }
