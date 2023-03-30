@@ -1,0 +1,19 @@
+.repo-table-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .repo-table {
+
+        :global .ant-table {
+            height: var(--tableHeight)
+        }
+
+        :global .ant-table-pagination.ant-pagination {
+            margin: var(--tablePaginationMargin) var(--tablePaginationMargin);
+
+        }
+    }
+}
