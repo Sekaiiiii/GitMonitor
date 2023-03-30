@@ -15,12 +15,14 @@ export default {
                     }
                 </a-breadcrumb>
                 <div class={styles['header-window-btns']}>
+                    <a-icon type="reload" onClick={this.hdClickReloadBtn}></a-icon>
                     <a-icon type="minus" onClick={this.hdClickMinusBtn}></a-icon>
                     <a-icon type="close" onClick={this.hdClickCloseBtn}></a-icon>
                 </div>
             </div>
         )
     },
+    inject: ['reload'],
     data() {
         return {
             breadcrumbData: []
@@ -45,6 +47,9 @@ export default {
         },
         hdClickMinusBtn() {
             window.electronAPI.send(ELECTRON_EVENT_WINDOW_MINIMIZE);
+        },
+        hdClickReloadBtn() {
+            this.reload();
         }
     }
 }

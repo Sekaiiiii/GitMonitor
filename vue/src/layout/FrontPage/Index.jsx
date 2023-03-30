@@ -11,9 +11,28 @@ export default {
                     <a-layout-header
                         class={styles['header-layout']}
                     ><FrontPageHeader /></a-layout-header>
-                    <a-layout-content class={styles['content-layout']} ><RouterView></RouterView></a-layout-content>
+                    <a-layout-content class={styles['content-layout']} >{this.routerViewRenderFlag ? <RouterView></RouterView> : null}</a-layout-content>
                 </a-layout>
             </a-layout >
         )
+    },
+    data() {
+        return {
+            routerViewRenderFlag: true
+        }
+    },
+    provide() {
+        return {
+            reload: this.reload
+        }
+    },
+    methods: {
+        reload() {
+            this.routerViewRenderFlag = false;
+            this.$nextTick(() => {
+                this.routerViewRenderFlag = true;
+            })
+        }
     }
+
 }
