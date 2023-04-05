@@ -1,0 +1,30 @@
+.repo-form-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+
+    display: flex;
+    justify-content: center;
+
+    .repo-form-form-container {
+        width: 60%;
+        height: fit-content;
+
+        .repo-form-btns {
+            display: flex;
+            justify-content: center;
+
+            &>* {
+                margin-right: 32px
+            }
+
+            .repo-form-btn:last-child {
+                margin-right: 0px;
+            }
+        }
+    }
+
+}

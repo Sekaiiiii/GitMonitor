@@ -14,7 +14,7 @@ export default {
                                 <a-icon type="appstore" /> <span>仓库管理</span>
                             </span>
                             <a-menu-item key='RepoTable'>仓库列表</a-menu-item>
-                            <a-menu-item>新增仓库</a-menu-item>
+                            <a-menu-item key='RepoForm'>新增仓库</a-menu-item>
                         </a-sub-menu>
                         <a-sub-menu>
                             <span slot="title">

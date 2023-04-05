@@ -144,7 +144,6 @@ export default {
     },
     methods: {
         hdChangeTable(pagination) {
-            console.log(pagination);
             this.repoTableConf.pagination.current = this.$set(this.repoTableConf.pagination, 'current', pagination.current);
             this.repoTableConf.pagination.pageSize = this.$set(this.repoTableConf.pagination, 'pageSize', pagination.pageSize);
         },

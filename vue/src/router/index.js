@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import FrontPage from '@/layout/FrontPage/Index';
 import RepoTable from '@/views/repo/RepoTable';
+import RepoForm from '@/views/repo/RepoForm';
 import HomePage from '@/views/HomePage';
 
 Vue.use(VueRouter)
@@ -27,6 +28,14 @@ const routes = [
         component: RepoTable,
         meta: {
           breadcrumbName: '仓库列表'
+        }
+      },
+      {
+        name: 'RepoForm',
+        path: 'repoForm',
+        component: RepoForm,
+        meta: {
+          breadcrumbName: '仓库表单'
         }
       }
     ]
