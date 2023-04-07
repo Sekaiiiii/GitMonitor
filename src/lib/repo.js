@@ -80,7 +80,8 @@ const createRepo = async (repoRemoteAddress, repoName) => {
                 throw new AppError({ errorCode: ERROR_CONSTANT.CREATE_REPO_DIR_ERROR });
             }
         }
-        await git.initGitRepo(path.join(REPO_DIR_PATH, repoName), repoRemoteAddress);
+        await git.initGitRepo(path.join(REPO_DIR_PATH, repoName));
+        await git.addRemoteRepo(path.join(REPO_DIR_PATH, repoName), repoRemoteAddress);
         return true;
     } catch (err) {
         if (err instanceof AppError) {

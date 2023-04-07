@@ -85,17 +85,30 @@ const getGitRemoteAddress = async (path) => {
             const gitRemoteCommand = spawn('git', ['remote', '-v'], {
                 cwd: path
             })
+            const gitRemoteCommandStdoutData = [];
             gitRemoteCommand.stdout.on('data', (data) => {
-                try {
-                    const stdOutputStr = data.toString();
-                    const remoteAddress = stdOutputStr.split(/\n/)?.[0]?.split(/\s/)?.[1];
-                    resolve(remoteAddress);
-                } catch (err) {
-                    reject(err);
-                }
+                const stdOutputStr = data.toString();
+                gitRemoteCommandStdoutData.push(stdOutputStr);
             })
             gitRemoteCommand.stderr.on('data', (data) => {
                 reject();
+            })
+            gitRemoteCommand.on('close', (code) => {
+                if (code != 0) {
+                    reject();
+                } else {
+                    try {
+                        const stdOutputStr = gitRemoteCommandStdoutData[0];
+                        const remoteAddress = stdOutputStr.split(/\n/)?.[0]?.split(/\s/)?.[1];
+                        if (remoteAddress) {
+                            resolve(remoteAddress);
+                        } else {
+                            reject();
+                        }
+                    } catch (err) {
+                        reject();
+                    }
+                }
             })
         })
     } catch (err) {

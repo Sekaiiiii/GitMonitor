@@ -10,7 +10,7 @@ export default {
      */
     repoList: async () => {
         try {
-            return await repo.listRepo()
+            return await repo.listRepo();
         } catch (err) {
             if (err instanceof AppError) {
                 throw err;
@@ -22,8 +22,16 @@ export default {
     /**
      * @function
      */
-    repoInit: () => {
-
+    repoInit: async (repoName, repoRemoteAddress) => {
+        try {
+            return await repo.createRepo(repoRemoteAddress, repoName);
+        } catch (err) {
+            if (err instanceof AppError) {
+                throw err;
+            }
+            logger.error(err);
+            throw err;
+        }
     },
     /**
      * @function

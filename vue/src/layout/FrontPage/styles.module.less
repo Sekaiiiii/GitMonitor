@@ -2,7 +2,7 @@
 
 .base-layout {
     height: 100%;
-    width: 100%;
+    width : 100%;
 
     .sider-layout {
 
@@ -18,46 +18,75 @@
 
     .header-layout {
         background-color: @common-background-color;
-        height: @header-height;
-        padding: 0 0;
-        line-height: 60px;
-        border-bottom: 1px solid @common-border-color;
+        height          : @header-height;
+        padding         : 0 0;
+        line-height     : 60px;
+        border-bottom   : 1px solid @common-border-color;
 
     }
 
     .content-layout {
-        background-color: @common-background-color;
-        height: 100%;
-        width: 100%;
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding: 24px 12px;
+        @page-padding-height: 12px;
+        @page-padding-width : 12px;
+        position            : relative;
+        background-color    : @common-background-color;
+        height              : 100%;
+        width               : 100%;
+        padding             : @page-padding-height @page-padding-width;
+
+        .content-layout-loading-mask {
+            position        : absolute;
+            height          : calc(100% - @page-padding-height * 2);
+            width           : calc(100% - @page-padding-width * 2);
+            display         : flex;
+            align-items     : center;
+            justify-content : center;
+            background-color: rgba(0, 0, 0, 0.1);
+            pointer-events  : all;
+            z-index         : 999;
+
+
+            .content-layout-loading-container {
+                display: block;
+                width  : fit-content;
+                height : fit-content;
+            }
+        }
+
+        .content-layout-container {
+            position  : absolute;
+            height    : calc(100% - @page-padding-height * 2);
+            width     : calc(100% - @page-padding-width * 2);
+            overflow-y: auto;
+            overflow-x: hidden;
+
+        }
     }
 }
 
 .menu-container {
-    height: 100%;
-    width: 100%;
+    height  : 100%;
+    width   : 100%;
     overflow: hidden;
 
     .menu-header {
         position: relative;
-        height: @header-height;
+        height  : @header-height;
 
         .menu-header-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            position : absolute;
+            top      : 50%;
+            left     : 50%;
             transform: translate(-50%, -50%);
-            height: auto;
-            width: 100%;
-            cursor: pointer;
+            height   : auto;
+            width    : 100%;
+            cursor   : pointer;
         }
     }
 
     .menu-content {
-        height: 100%;
-        width: 100%;
+        height    : 100%;
+        width     : 100%;
         overflow-y: scroll;
 
         &::-webkit-scrollbar {
@@ -68,33 +97,33 @@
 
 .header-container {
     position: relative;
-    height: 100%;
-    width: 100%;
+    height  : 100%;
+    width   : 100%;
     overflow: hidden;
 
     .header-breadcrumb {
-        position: absolute;
-        width: fit-content;
-        height: 30px;
+        position   : absolute;
+        width      : fit-content;
+        height     : 30px;
         line-height: 30px;
-        top: 0;
-        bottom: 0;
-        margin: auto 28px;
+        top        : 0;
+        bottom     : 0;
+        margin     : auto 28px;
     }
 
     .header-window-btns {
-        position: absolute;
-        width: fit-content;
-        height: 30px;
+        position   : absolute;
+        width      : fit-content;
+        height     : 30px;
         line-height: 30px;
-        top: 9px;
-        bottom: 0;
-        right: 16px;
+        top        : 9px;
+        bottom     : 0;
+        right      : 16px;
 
         * {
-            color: rgba(0, 0, 0, 1);
+            color      : rgba(0, 0, 0, 1);
             margin-left: 10px;
-            cursor: pointer;
+            cursor     : pointer;
         }
     }
 }

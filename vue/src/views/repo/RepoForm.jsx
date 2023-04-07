@@ -1,4 +1,5 @@
 import styles from './RepoForm.module.less';
+import { ELECTRON_API_CODE } from '@/constants';
 export default {
     render() {
         return (
@@ -34,6 +35,7 @@ export default {
             formItemLayout,
         }
     },
+    inject: ['openPageLoading', 'closePageLoading'],
     methods: {
         async hdClickAddBtn() {
             let formValues;
@@ -46,8 +48,26 @@ export default {
                         return resolve(values);
                     })
                 })
-            } catch (err) { return; }
-            console.log(formValues);
+            } catch (err) {
+                return;
+            }
+            let loadingInstance = this.openPageLoading();
+            try {
+                const apiRes = await window.electronAPI.invoke('mainWindow:createRepo', { repoName: formValues.repoName, repoRemoteAddress: formValues.repoRemoteAddress });
+                if (apiRes?.code === ELECTRON_API_CODE.FAILED) {
+                    throw new Error(apiRes?.errorMsg);
+                }
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve()
+                    }, 10000)
+                })
+            } catch (err) {
+                err?.message && this.$message.error(err?.message);
+            } finally {
+                this.closePageLoading(loadingInstance);
+            }
+
         },
         hdClickResetBtn() {
             this.form.setFieldsValue({
