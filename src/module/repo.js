@@ -1,9 +1,11 @@
 /**
  * @file git repo module
  */
+import { REPO_DIR_PATH } from '@/constant';
 import AppError from '@/lib/class/AppError';
 import repo from '@/lib/repo';
-
+import logger from '@/util/logger';
+import path from 'node:path'
 export default {
     /**
      * @function
@@ -19,6 +21,7 @@ export default {
             throw err;
         }
     },
+
     /**
      * @function
      */
@@ -33,16 +36,19 @@ export default {
             throw err;
         }
     },
+
     /**
      * @function
      */
-    repoDelete: () => {
-
-    },
-    /**
-     * @function
-     */
-    repoRename: () => {
-
+    repoDelete: async (repoName) => {
+        try {
+            return await repo.deleteRepo(path.join(REPO_DIR_PATH, repoName));
+        } catch (err) {
+            if (err instanceof AppError) {
+                throw err;
+            }
+            logger.error(err);
+            throw err;
+        }
     }
 }

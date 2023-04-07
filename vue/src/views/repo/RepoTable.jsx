@@ -27,6 +27,11 @@ export default {
                             },
                             repoRemoteAddress: (text) => {
                                 return (<div class={tableColumnsStyles['div-text']}>{text}</div>)
+                            },
+                            operation: (text, record) => {
+                                return (<div class={tableColumnsStyles['div-operation']}>
+                                    <span onClick={() => this.hdClickTableRowDelete(record)}>删除</span>
+                                </div>)
                             }
                         }
                     }
@@ -35,6 +40,7 @@ export default {
             </div >
         )
     },
+    inject: ['openPageLoading', 'closePageLoading'],
     data() {
         return {
             repoList: null,
@@ -149,6 +155,20 @@ export default {
         },
         hdChangeTableRowSelection(selectedRowKeys) {
             this.repoTableConf.rowSelection.selectedRowKeys = selectedRowKeys;
+        },
+        async hdClickTableRowDelete(record) {
+            const loadingInstance = this.openPageLoading();
+            try {
+                const apiRes = await window.electronAPI.invoke('mainWindow:deleteRepo', { repoName: record.repoName });
+                if (apiRes?.code === ELECTRON_API_CODE.FAILED) {
+                    throw new Error(apiRes?.errorMsg);
+                }
+                this.repoList = apiRes.data;
+            } catch (err) {
+                err?.message && this.$message.error(err?.message);
+            } finally {
+                this.closePageLoading(loadingInstance);
+            }
         },
         async async_invokeElectronAPI_getRepoList() {
             try {

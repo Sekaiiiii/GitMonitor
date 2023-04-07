@@ -15,7 +15,8 @@ import { spawn } from 'node:child_process';
  */
 const isGitRepoCanLog = async (path) => {
     try {
-        await fs.opendir(path);
+        const dir = await fs.opendir(path);
+        await dir.close();
         await new Promise((resolve, reject) => {
             const gitLogCommand = spawn('git', ['log', '--oneline', '-n1'], {
                 cwd: path
@@ -45,9 +46,10 @@ const isGitRepoCanLog = async (path) => {
  * @function
  */
 const isGitRepo = async (path) => {
+    let dir, dirGit;
     try {
-        await fs.opendir(path);
-        await fs.opendir(pathLib.join(path, '.git'))
+        dir = await fs.opendir(path);
+        dirGit = await fs.opendir(pathLib.join(path, '.git'))
         await new Promise((resolve, reject) => {
             const gitRevParseCommand = spawn('git', ['rev-parse', '--is-inside-work-tree'], {
                 cwd: path
@@ -70,6 +72,9 @@ const isGitRepo = async (path) => {
     } catch (err) {
         logger.debug(err);
         return false;
+    } finally {
+        await dir?.close?.();
+        await dirGit?.close?.();
     }
 }
 
@@ -122,11 +127,15 @@ const getGitRemoteAddress = async (path) => {
  */
 const initGitRepo = async (path) => {
     try {
+        let dir;
         try {
-            await fs.opendir(path);
+            dir = await fs.opendir(path);
         } catch (err) {
             throw new AppError({ errorCode: ERROR_CONSTANT.REPO_PATH_NOT_EXIST_ERROR })
+        } finally {
+            await dir?.close?.();
         }
+
         if (await isGitRepo(path)) {
             throw new AppError({ errorCode: ERROR_CONSTANT.REPO_PATH_EXIST_REPO_ERROR })
         }

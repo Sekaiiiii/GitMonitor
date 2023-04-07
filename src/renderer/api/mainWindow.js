@@ -21,7 +21,6 @@ export default function () {
 
     ipcMain.handle('mainWindow:createRepo', async (e, { repoName, repoRemoteAddress }) => {
         try {
-            logger.debug(repoName, repoRemoteAddress);
             const data = await repoModule.repoInit(repoName, repoRemoteAddress);
             return new ApiResponse(data);
         } catch (err) {
@@ -33,4 +32,20 @@ export default function () {
             }
         }
     })
+
+    ipcMain.handle('mainWindow:deleteRepo', async (e, { repoName }) => {
+        try {
+            const data = await repoModule.repoDelete(repoName);
+            return new ApiResponse(data);
+        } catch (err) {
+            if (err instanceof AppError) {
+                return new ApiResponse(err);
+            } else {
+                logger.error(err);
+                return new ApiResponse(new Error());
+            }
+        }
+    })
+
+    ipcMain.handle
 }

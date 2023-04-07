@@ -16,10 +16,13 @@ import { RESOURCE_DIR_PATH, REPO_DIR_NAME, REPO_DIR_PATH } from '@/constant';
  * @desc init repo resource dir
  */
 const initRepoResource = async () => {
+    let dir
     try {
-        await fs.opendir(REPO_DIR_PATH);
+        dir = await fs.opendir(REPO_DIR_PATH);
     } catch (err) {
         await fs.mkdir(REPO_DIR_PATH, { recursive: true });
+    } finally {
+        await dir?.close?.();
     }
 }
 
@@ -28,9 +31,10 @@ const initRepoResource = async () => {
  * @desc list repo in repo dir
  */
 const listRepo = async () => {
+    let dir;
     try {
         const repoList = [];
-        const dir = await fs.opendir(REPO_DIR_PATH);
+        dir = await fs.opendir(REPO_DIR_PATH);
         for await (const dirent of dir) {
             if (!dirent.isDirectory()) {
                 continue;
@@ -52,6 +56,8 @@ const listRepo = async () => {
         }
         logger.error(err);
         return [];
+    } finally {
+        await dir?.close?.()
     }
 }
 
@@ -60,8 +66,9 @@ const listRepo = async () => {
  * @desc create repo in repo dir
  */
 const createRepo = async (repoRemoteAddress, repoName) => {
+    let dir;
     try {
-        const dir = await fs.opendir(path.join(REPO_DIR_PATH))
+        dir = await fs.opendir(path.join(REPO_DIR_PATH))
         const repoCreateDirExistFlag = false;
         for await (const dirent of dir) {
             if (dirent.name === repoName) {
@@ -89,6 +96,8 @@ const createRepo = async (repoRemoteAddress, repoName) => {
         }
         logger.error(err);
         throw err;
+    } finally {
+        await dir?.close?.();
     }
 }
 
